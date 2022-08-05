@@ -1,0 +1,2 @@
+const e={form:document.querySelector(".form"),valueDelay:document.querySelector("input[name=delay]"),valueStep:document.querySelector("input[name=step]"),valueAmount:document.querySelector("input[name=amount]")};function t(t,n){const u=Math.random()>.3;return new Promise(((o,m)=>{e.valueStep.value;setTimeout((()=>{u?o(`✅ Fulfilled promise ${t} in ${n}ms`):m(`❌ Rejected promise ${t} in ${n}ms`)}),n)}))}e.form.addEventListener("submit",t);
+//# sourceMappingURL=03-promises.532c1ca7.js.map
