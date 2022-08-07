@@ -1,2 +1,0 @@
-!function(){var e={form:document.querySelector(".form"),valueDelay:document.querySelector("input[name=delay]"),valueStep:document.querySelector("input[name=step]"),valueAmount:document.querySelector("input[name=amount]")};function t(t,n){var o=Math.random()>.3;return new Promise((function(u,c){e.valueStep.value;setTimeout((function(){o?u("✅ Fulfilled promise ".concat(t," in ").concat(n,"ms")):c("❌ Rejected promise ".concat(t," in ").concat(n,"ms"))}),n)}))}e.form.addEventListener("submit",t)}();
-//# sourceMappingURL=03-promises.7a2a7009.js.map
