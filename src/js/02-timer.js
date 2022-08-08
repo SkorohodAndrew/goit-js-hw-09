@@ -10,34 +10,57 @@ const refs = {
   seconds: document.querySelector('[data-seconds]'),
 };
 
+let startTime = Date.now();
+let intervalID = null;
+let sameData;
+
 refs.startBtn.addEventListener('click', startTimer);
 refs.startBtn.setAttribute('disabled', true);
 
 const options = {
   enableTime: true,
   time_24hr: true,
-  defaultDate: new Date(),
+  defaultDate: startTime,
   minuteIncrement: 1,
   onClose(selectedDates) {
-    if (selectedDates[0] <= new Date()) {
+    if (selectedDates[0].getTime() <= startTime) {
       window.alert('Please choose a date in the future');
       refs.startBtn.setAttribute('disabled', false);
     } else {
       refs.startBtn.removeAttribute('disabled', false);
     }
-    console.log(selectedDates[0]);
+    return (sameData = selectedDates[0].getTime());
   },
 };
 
 flatpickr(refs.input, options);
 
 function startTimer() {
-  const startTime = Date.now();
+  intervalID = setInterval(() => {
+    const time = Date.now();
+    const currentTime = sameData - time;
+    if (currentTime <= 0) {
+      return;
+    }
+    const timeComponents = convertMs(currentTime);
+    console.log(timeComponents);
 
-  setInterval(() => {
-    const currentTime = Date.now();
-    console.log(currentTime - startTime);
+    refs.day.textContent = pad(convertMs(currentTime).days);
+    refs.hours.textContent = pad(convertMs(currentTime).hours);
+    refs.minutes.textContent = pad(convertMs(currentTime).minutes);
+    refs.seconds.textContent = pad(convertMs(currentTime).seconds);
   }, 1000);
+  stopTimer();
+}
+
+function stopTimer() {
+  if (Date.parse(refs.input.value) <= 0) {
+    clearInterval(timerId);
+  }
+}
+
+function pad(value) {
+  return String(value).padStart(2, '0');
 }
 
 function convertMs(ms) {
